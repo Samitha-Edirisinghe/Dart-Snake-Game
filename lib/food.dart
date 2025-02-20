@@ -1,7 +1,6 @@
 // food.dart
 import 'dart:math';
 import 'dart:ui';
-import 'snake.dart';
 
 class Food {
   Offset position;
