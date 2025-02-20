@@ -1,3 +1,4 @@
+// game_painter.dart
 import 'package:flutter/material.dart';
 
 class GamePainter extends CustomPainter {
@@ -15,32 +16,41 @@ class GamePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final backgroundPaint = Paint()..color = Colors.black;
-    canvas.drawRect(
-        Rect.fromLTWH(0, 0, size.width, size.height), backgroundPaint);
-
+    _drawBackground(canvas, size);
     if (gameOver) {
-      final textPainter = TextPainter(
-        text: TextSpan(
-          text: 'GAME OVER',
-          style: TextStyle(color: Colors.red, fontSize: 40),
-        ),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      textPainter.paint(
-        canvas,
-        Offset(
-          (size.width - textPainter.width) / 2,
-          (size.height - textPainter.height) / 2,
-        ),
-      );
+      _drawGameOver(canvas, size);
       return;
     }
+    _drawSnake(canvas);
+    _drawFood(canvas);
+  }
 
-    final snakePaint = Paint()
-      ..color = Colors.green
-      ..style = PaintingStyle.fill;
+  void _drawBackground(Canvas canvas, Size size) {
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      Paint()..color = Colors.black,
+    );
+  }
 
+  void _drawGameOver(Canvas canvas, Size size) {
+    final textPainter = TextPainter(
+      text: const TextSpan(
+        text: 'GAME OVER',
+        style: TextStyle(color: Colors.red, fontSize: 40),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    textPainter.paint(
+      canvas,
+      Offset(
+        (size.width - textPainter.width) / 2,
+        (size.height - textPainter.height) / 2,
+      ),
+    );
+  }
+
+  void _drawSnake(Canvas canvas) {
+    final paint = Paint()..color = Colors.green;
     for (final segment in snake) {
       canvas.drawRect(
         Rect.fromLTWH(
@@ -49,13 +59,12 @@ class GamePainter extends CustomPainter {
           tileSize,
           tileSize,
         ),
-        snakePaint,
+        paint,
       );
     }
+  }
 
-    final foodPaint = Paint()
-      ..color = Colors.red
-      ..style = PaintingStyle.fill;
+  void _drawFood(Canvas canvas) {
     canvas.drawRect(
       Rect.fromLTWH(
         food.dx * tileSize,
@@ -63,7 +72,7 @@ class GamePainter extends CustomPainter {
         tileSize,
         tileSize,
       ),
-      foodPaint,
+      Paint()..color = Colors.red,
     );
   }
 

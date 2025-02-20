@@ -1,9 +1,12 @@
+// snake.dart
+import 'dart:math';
 import 'dart:ui';
 import 'direction.dart';
 
 class Snake {
   List<Offset> body;
   final int gridSize;
+  int pendingGrowth = 0;
 
   Snake({required this.gridSize})
       : body = [Offset((gridSize ~/ 2).toDouble(), (gridSize ~/ 2).toDouble())];
@@ -24,29 +27,30 @@ class Snake {
         newHead = Offset(newHead.dx + 1, newHead.dy);
         break;
     }
+
     body.insert(0, newHead);
+
+    if (pendingGrowth > 0) {
+      pendingGrowth--;
+    } else {
+      body.removeLast();
+    }
+
     return newHead;
   }
 
   void grow() {
-    // Snake grows by not removing the tail
+    pendingGrowth++;
   }
 
   bool checkCollision(int gridSize) {
-    Offset head = body.first;
-    // Check wall collision
+    final head = body.first;
     if (head.dx < 0 ||
         head.dx >= gridSize ||
         head.dy < 0 ||
         head.dy >= gridSize) {
       return true;
     }
-    // Check self collision
-    for (int i = 1; i < body.length; i++) {
-      if (head == body[i]) {
-        return true;
-      }
-    }
-    return false;
+    return body.skip(1).any((segment) => segment == head);
   }
 }

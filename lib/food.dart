@@ -1,5 +1,7 @@
+// food.dart
 import 'dart:math';
 import 'dart:ui';
+import 'snake.dart';
 
 class Food {
   Offset position;
@@ -14,6 +16,6 @@ class Food {
         random.nextInt(gridSize).toDouble(),
         random.nextInt(gridSize).toDouble(),
       );
-    } while (snakeBody.contains(position));
+    } while (snakeBody.any((segment) => segment == position));
   }
 }
