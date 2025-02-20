@@ -1,4 +1,3 @@
-// snake_game.dart
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -36,6 +35,7 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
       score = 0;
       direction = Direction.right;
     });
+
     gameTimer?.cancel();
     gameTimer = Timer.periodic(Duration(milliseconds: 200), (timer) {
       if (!gameOver) moveSnake();
@@ -44,13 +44,11 @@ class _SnakeGameScreenState extends State<SnakeGameScreen> {
 
   void moveSnake() {
     final newHead = snake.move(direction);
-
     if (snake.checkCollision(gridSize)) {
       setState(() => gameOver = true);
       gameTimer?.cancel();
       return;
     }
-
     if (newHead == food.position) {
       setState(() {
         snake.grow();

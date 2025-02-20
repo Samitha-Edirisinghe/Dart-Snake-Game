@@ -1,6 +1,6 @@
-// snake.dart
 import 'dart:math';
-import 'dart:ui';
+import 'package:flutter/material.dart';
+
 import 'direction.dart';
 
 class Snake {
@@ -29,7 +29,6 @@ class Snake {
     }
 
     body.insert(0, newHead);
-
     if (pendingGrowth > 0) {
       pendingGrowth--;
     } else {
