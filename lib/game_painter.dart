@@ -1,3 +1,4 @@
+// Coding by Samitha Randika | https://www.linkedin.com/in/samitha-randika-edirisinghe-b3a68a2b6 //
 // game_painter.dart
 import 'package:flutter/material.dart';
 
@@ -72,7 +73,7 @@ class GamePainter extends CustomPainter {
         tileSize,
         tileSize,
       ),
-      Paint()..color = Colors.red,
+      Paint()..color = Colors.yellow,
     );
   }
 
