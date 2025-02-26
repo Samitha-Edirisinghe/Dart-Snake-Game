@@ -8,6 +8,8 @@ import 'direction.dart';
 import 'game_painter.dart';
 
 class SnakeGameScreen extends StatefulWidget {
+  const SnakeGameScreen({super.key});
+
   @override
   _SnakeGameScreenState createState() => _SnakeGameScreenState();
 }
